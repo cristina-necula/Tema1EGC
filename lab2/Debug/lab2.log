@@ -1,0 +1,14 @@
+﻿Build started 10/29/2013 4:30:46 PM.
+     1>Project "E:\school\EGC\tema1\lab2\lab2_ex1_v2\lab2\lab2.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\school\EGC\tema1\lab2\lab2_ex1_v2\Debug\Tema1EGC.exe" /INCREMENTAL /NOLOGO /LIBPATH:dependente freeglut.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\school\EGC\tema1\lab2\lab2_ex1_v2\Debug\Tema1EGC.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\school\EGC\tema1\lab2\lab2_ex1_v2\Debug\Tema1EGC.lib" /MACHINE:X86 Debug\DrawingWindow.obj
+         Debug\Transform2D.obj
+         Debug\Visual2D.obj
+         Debug\main.obj
+         Debug\Opponents.obj
+         lab2.vcxproj -> E:\school\EGC\tema1\lab2\lab2_ex1_v2\Debug\Tema1EGC.exe
+     1>Done Building Project "E:\school\EGC\tema1\lab2\lab2_ex1_v2\lab2\lab2.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.05
