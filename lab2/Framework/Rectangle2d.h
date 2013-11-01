@@ -4,6 +4,14 @@
 class Rectangle2D:public Object2D
 {
 public:
+
+	Rectangle2D()
+	{
+		color.r = color.b = color.g = 0;
+		fill = false;
+		type = 2;
+	}
+
 	Rectangle2D(Point2D p, float width, float height)
 	{
 		fill = false;

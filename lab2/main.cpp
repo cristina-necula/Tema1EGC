@@ -32,41 +32,31 @@ float rotationAngle = 0;
 Text *score;
 Text *points;
 
-Opponents opponents;
+//vieti
+Line2D *line;
+Rectangle2D *cross11;
+Rectangle2D *cross12;
+
+std::vector <Opponents*> opponents;
 
 //oponent 1(reprezentat prin doua patrate)
-Polygon2D *square1;
-Polygon2D *square2;
 float opponent1X;
 float opponent1Y;
 
 //oponent 2(reprezentat prin doua triunghiuri)
-Polygon2D *triangle1;
-Polygon2D *triangle2;
-Polygon2D *triangle3;
-Polygon2D *triangle4;
 float opponent2X;
 float opponent2Y;
 
 //oponent 3(reprezentat prin patrat si romb in interior)
-Rectangle2D *square3;
-Polygon2D *rhomb;
 float opponent3X;
 float opponent3Y;
 
 //oponent 4(reprezentat prin doua triunghiuri in forma de stea)
-Polygon2D *star1;
-Polygon2D *star2;
 float opponent4X;
 float opponent4Y;
 
-//vector de pozitii initiale petru toti oponentii
-vector <pair<float, float>> initialPositions;
-
-//vector de obiecte 2D pt oponenti
-vector <Object2D*> objectsOpponents;
-
 int time = 0;
+bool addedNew = false;
 
 
 //functia care deseneaza jucatorul
@@ -96,6 +86,13 @@ void showWeapon(int x, int y){
 	weapon->addPoint(Point2D(x + 40, y - 15));
 }
 
+//functia pentru numarul de vieti
+//initial, jucatorul are 3 vieti. Pe ecran vor fi 3 cruci gri deschis
+//in momentul in care jucatorul pierde o viata, cate o cruce se va colora in gri inchis
+void lives(int x, int y, Polygon2D *live, Visual2D *context){
+
+}
+
 //functia pentru coliziunea dintre jucatorul unu si ceilalti jucatori
 //return 1 => jucatorul unu a omorat dusmanul
 //return 0 => jucatorul unu a pierdut o viata(a fost atins de un alt jucator)
@@ -120,6 +117,15 @@ void DrawingWindow::init()
 	points = new Text("0", Point2D(450, 20), Color(0, 1, 0), BITMAP_HELVETICA_18);
 	addText_to_Visual2D(points, infos);
 
+	//adaugare vieti
+	cross11 = new Rectangle2D(Point2D(25 - 10, 55 - 20), 30, 10, Color(0.333333, 0.333333, 0.333333), true);
+	cross12 = new Rectangle2D(Point2D(25, 55 - 30), 10, 30, Color(0.333333, 0.333333, 0.333333), true);
+	line = new Line2D(Point2D(25 - 10, 55 - 30), Point2D(25 + 20, 55 - 30), Color(0.333333, 0.333333, 0.333333));
+
+	DrawingWindow::addObject2D_to_Visual2D(line, infos);
+	DrawingWindow::addObject2D_to_Visual2D(cross11, infos);
+	DrawingWindow::addObject2D_to_Visual2D(cross12, infos);
+
 	//context pentru suprafata de joc
 	gameArea = new Visual2D(0, 0, DrawingWindow::width, DrawingWindow::height, 0, DrawingWindow::height / 8, 
 							DrawingWindow::width, DrawingWindow::height);
@@ -136,44 +142,23 @@ void DrawingWindow::init()
 	//initializare arma
 	showWeapon(500, 300);
 
-	//incep sa adaug oponenti
-	
-	//adaug oponent 1
+	//coordonate oponenti
+
+	//oponent 1
 	opponent1X = 300;
 	opponent1Y = 100;
-	square1 = new Polygon2D(Color(0.5, 0, 0.5), false);
-	square2 = new Polygon2D(Color(0.5, 0, 0.5), false);
-	initialPositions.push_back(make_pair(opponent1X, opponent1Y));
-	objectsOpponents.push_back(square1);
-	objectsOpponents.push_back(square2);
 
-	//adaug oponent 2
+	//oponent 2
 	opponent2X = 200;
 	opponent2Y = 300;
-	triangle1 = new Polygon2D(Color(1, 0, 0), false);
-	triangle2 = new Polygon2D(Color(1, 0, 0), false);
-	triangle3 = new Polygon2D(Color(1, 1, 0), true);
-	triangle4 = new Polygon2D(Color(1, 1, 0), true);
-	initialPositions.push_back(make_pair(opponent1X, opponent1Y));
 
-	//adaug oponent 3;
+	//oponent 3;
 	opponent3X = 200;
 	opponent3Y = 420;
-	square3 = new Rectangle2D(Point2D(opponent3X, opponent3Y), 30, 30, Color(0, 1, 0), false);
-	rhomb = new Polygon2D(Color(0, 1, 0), false);
-	initialPositions.push_back(make_pair(opponent1X, opponent1Y));
 
-	//adaug oponent 4
+	//oponent 4
 	opponent4X = 700;
 	opponent4Y = 100;
-	star1 = new Polygon2D(Color(0, 0, 1), false);
-	star2 = new Polygon2D(Color(0, 0, 1), false);
-	initialPositions.push_back(make_pair(opponent1X, opponent1Y));
-
-	opponents.opponent1(opponent1X, opponent1Y, square1, square2, gameArea);
-	opponents.opponent2(opponent2X, opponent2Y, triangle1, triangle2, triangle3, triangle4, gameArea);
-	opponents.opponent3(opponent3X, opponent3Y, square3, rhomb, gameArea);
-	opponents.opponent4(opponent4X, opponent4Y, star1, star2, gameArea);
 
 }
 
@@ -182,14 +167,30 @@ void DrawingWindow::init()
 void DrawingWindow::onIdle()
 {
 	time++;
+	
+	if(time % 100 == 0) {
 
-	//misc random primii patru oponenti
-	opponents.moveOpponent1(square1, square2);
-	opponents.moveOpponent2(triangle1, triangle2, triangle3, triangle4);
-	opponents.moveOpponent3(square3, rhomb);
-	opponents.moveOpponent4(star1, star2);
-	
-	
+		Opponents *op = new Opponents();
+		opponents.push_back(op);
+
+		opponents[opponents.size() - 1]->opponent1(opponent1X, opponent1Y, gameArea);
+		opponents[opponents.size() - 1]->opponent2(opponent2X, opponent2Y, gameArea);
+		opponents[opponents.size() - 1]->opponent3(opponent3X, opponent3Y, gameArea);
+		opponents[opponents.size() - 1]->opponent4(opponent4X, opponent4Y, gameArea);
+
+		addedNew = true;
+	}
+
+	if(addedNew) {
+
+		for(int i = 0; i < opponents.size(); i++){
+			opponents[i]->moveOpponent1();
+			opponents[i]->moveOpponent2();
+			opponents[i]->moveOpponent3();
+			opponents[i]->moveOpponent4();
+		}
+	}
+
 }
 
 //functia care se apeleaza la redimensionarea ferestrei
