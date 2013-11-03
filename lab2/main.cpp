@@ -6,6 +6,7 @@
 #include "Framework/Circle2D.h"
 #include "Framework/Polygon2D.h"
 #include "Opponents.h"
+#include "Collisions.h"
 #include <iostream>
 #include <windows.h>
 #include <stdlib.h>
@@ -27,6 +28,7 @@ bool weaponOn;
 bool slowDown;
 float step = 0;
 float rotationAngle = 0;
+std::vector<Polygon2D *> collisionObjects;
 
 //scor si nr puncte
 Text *score;
@@ -65,7 +67,7 @@ void playerOne(float x, float y){
 	//jucator
 	circle = new Circle2D(Point2D(x, y), 25, Color(1, 0.5, 0), false);
 	polygon = new Polygon2D(Color(1, 0.5, 0), false);
-
+	
 	polygon->addPoint(Point2D(x - 20, y));
 	polygon->addPoint(Point2D(x, y + 20));
 	polygon->addPoint(Point2D(x + 20, y + 10));
@@ -168,7 +170,7 @@ void DrawingWindow::onIdle()
 {
 	time++;
 	
-	if(time % 100 == 0) {
+	if(time == 100 || time == 400) {
 
 		Opponents *op = new Opponents();
 		opponents.push_back(op);
@@ -178,6 +180,8 @@ void DrawingWindow::onIdle()
 		opponents[opponents.size() - 1]->opponent3(opponent3X, opponent3Y, gameArea);
 		opponents[opponents.size() - 1]->opponent4(opponent4X, opponent4Y, gameArea);
 
+		//Collisions col;
+		//col.createImaginaryRectangles(opponents[opponents.size() - 1], weapon);
 		addedNew = true;
 	}
 
@@ -188,6 +192,8 @@ void DrawingWindow::onIdle()
 			opponents[i]->moveOpponent2();
 			opponents[i]->moveOpponent3();
 			opponents[i]->moveOpponent4();
+			Collisions *collissions = new Collisions();
+			collissions->killOpponent(opponents[i], weapon, weapon);
 		}
 	}
 
@@ -297,15 +303,44 @@ void DrawingWindow::onMouse(int button,int state,int x, int y)
 	
 }
 
+int get_line_intersection1(float p0_x, float p0_y, float p1_x, float p1_y, 
+    float p2_x, float p2_y, float p3_x, float p3_y, float *i_x, float *i_y)
+{
+    float s1_x, s1_y, s2_x, s2_y;
+    s1_x = p1_x - p0_x;     s1_y = p1_y - p0_y;
+    s2_x = p3_x - p2_x;     s2_y = p3_y - p2_y;
 
+    float s, t;
+    s = (-s1_y * (p0_x - p2_x) + s1_x * (p0_y - p2_y)) / (-s2_x * s1_y + s1_x * s2_y);
+    t = ( s2_x * (p0_y - p2_y) - s2_y * (p0_x - p2_x)) / (-s2_x * s1_y + s1_x * s2_y);
+
+    if (s >= 0 && s <= 1 && t >= 0 && t <= 1)
+    {
+        // Collision detected
+        if (i_x != NULL)
+            *i_x = p0_x + (t * s1_x);
+        if (i_y != NULL)
+            *i_y = p0_y + (t * s1_y);
+        return 1;
+    }
+}
 int main(int argc, char** argv)
 {
+	/*float *p_x = 0;
+	float *p_y = 0;
+
+	int ceva = get_line_intersection1(200.0, 215.0, 240.0, 200.0, 230.0, 220.0, 230.0, 180.0, p_x, p_y);
+	int x = get_line_intersection1(220.0, 190.0,230.0, 170.0, 250.0, 200.0, 250.0, 170.0, p_x, p_y);
+	cout << ceva<<endl;
+	cout << x << endl;*/
+
 	//creare fereastra
 	DrawingWindow dw(argc, argv, 1000, 600, 200, 100, "Geometry Wars");
 	//se apeleaza functia init() - in care s-au adaugat obiecte
 	dw.init();
 	//se intra in bucla principala de desenare - care face posibila desenarea, animatia si procesarea evenimentelor
 	dw.run();
+
 	return 0;
 
 }

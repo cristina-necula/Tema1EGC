@@ -1,73 +1,35 @@
-﻿Build started 11/1/2013 3:38:19 PM.
-     1>Project "C:\Users\Cristina\Documents\GitHub\Tema1EGC\lab2\lab2.vcxproj" on node 2 (Rebuild target(s)).
+﻿Build started 11/3/2013 12:12:01 PM.
+     1>Project "C:\Users\Cristina\Documents\GitHub\Tema1EGC\lab2\lab2.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Idependente /IE:\school\EGC\tema1\lab2\lab2_ex1_v2\lab2\Framework /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Collision.cpp Framework\DrawingWindow.cpp Framework\Transform2D.cpp Framework\Visual2D.cpp Opponents.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Idependente /IE:\school\EGC\tema1\lab2\lab2_ex1_v2\lab2\Framework /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Collisions.cpp Opponents.cpp
          Opponents.cpp
      1>c:\users\cristina\documents\github\tema1egc\lab2\framework\object2d.h(23): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(91): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(92): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(141): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(143): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(188): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(189): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(208): warning C4305: '=' : truncation from 'double' to 'float'
-     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(229): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(230): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(231): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(234): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(236): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-         Visual2D.cpp
+     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(98): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(99): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(151): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(153): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(201): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(202): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(222): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(245): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(246): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(247): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(250): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(252): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+         Collisions.cpp
      1>c:\users\cristina\documents\github\tema1egc\lab2\framework\object2d.h(23): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\cristina\documents\github\tema1egc\lab2\framework\visual2d.cpp(91): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\cristina\documents\github\tema1egc\lab2\framework\visual2d.cpp(92): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\cristina\documents\github\tema1egc\lab2\framework\visual2d.cpp(93): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\cristina\documents\github\tema1egc\lab2\framework\visual2d.cpp(94): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-         Transform2D.cpp
-     1>c:\users\cristina\documents\github\tema1egc\lab2\framework\object2d.h(23): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\cristina\documents\github\tema1egc\lab2\framework\transform2d.cpp(144): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\cristina\documents\github\tema1egc\lab2\framework\transform2d.cpp(168): warning C4018: '<' : signed/unsigned mismatch
-         DrawingWindow.cpp
-     1>c:\users\cristina\documents\github\tema1egc\lab2\framework\object2d.h(23): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\cristina\documents\github\tema1egc\lab2\framework\drawingwindow.cpp(99): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\cristina\documents\github\tema1egc\lab2\framework\drawingwindow.cpp(103): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\cristina\documents\github\tema1egc\lab2\framework\drawingwindow.cpp(163): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\cristina\documents\github\tema1egc\lab2\framework\drawingwindow.cpp(167): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\cristina\documents\github\tema1egc\lab2\framework\drawingwindow.cpp(183): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\cristina\documents\github\tema1egc\lab2\framework\drawingwindow.cpp(378): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\cristina\documents\github\tema1egc\lab2\framework\drawingwindow.cpp(395): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\cristina\documents\github\tema1egc\lab2\framework\drawingwindow.cpp(412): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\cristina\documents\github\tema1egc\lab2\framework\drawingwindow.cpp(429): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\cristina\documents\github\tema1egc\lab2\framework\drawingwindow.cpp(447): warning C4018: '<' : signed/unsigned mismatch
-         Collision.cpp
-     1>c:\users\cristina\documents\github\tema1egc\lab2\framework\object2d.h(23): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\cristina\documents\github\tema1egc\lab2\collisions.cpp(118): warning C4018: '<' : signed/unsigned mismatch
          Generating Code...
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /IE:\school\EGC\tema1\lab2\lab2_ex1_v2\lab2\Framework /Idependente /IE:\school\EGC\tema1\lab2\lab2_ex1_v2\lab2\Framework /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
-         main.cpp
-     1>c:\users\cristina\documents\github\tema1egc\lab2\framework\object2d.h(23): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\cristina\documents\github\tema1egc\lab2\framework\circle2d.h(24): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\cristina\documents\github\tema1egc\lab2\framework\circle2d.h(48): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\cristina\documents\github\tema1egc\lab2\main.cpp(84): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\cristina\documents\github\tema1egc\lab2\main.cpp(85): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\cristina\documents\github\tema1egc\lab2\main.cpp(86): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\cristina\documents\github\tema1egc\lab2\main.cpp(108): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\cristina\documents\github\tema1egc\lab2\main.cpp(121): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\cristina\documents\github\tema1egc\lab2\main.cpp(122): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\cristina\documents\github\tema1egc\lab2\main.cpp(123): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\cristina\documents\github\tema1egc\lab2\main.cpp(131): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\cristina\documents\github\tema1egc\lab2\main.cpp(186): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\cristina\documents\github\tema1egc\lab2\main.cpp(229): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>c:\users\cristina\documents\github\tema1egc\lab2\main.cpp(272): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>c:\users\cristina\documents\github\tema1egc\lab2\main.cpp(284): warning C4305: '-=' : truncation from 'double' to 'float'
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Cristina\Documents\GitHub\Tema1EGC\Debug\Tema1EGC.exe" /INCREMENTAL /NOLOGO /LIBPATH:dependente freeglut.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Cristina\Documents\GitHub\Tema1EGC\Debug\Tema1EGC.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Cristina\Documents\GitHub\Tema1EGC\Debug\Tema1EGC.lib" /MACHINE:X86 Debug\Collision.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Cristina\Documents\GitHub\Tema1EGC\Debug\Tema1EGC.exe" /INCREMENTAL /NOLOGO /LIBPATH:dependente freeglut.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Cristina\Documents\GitHub\Tema1EGC\Debug\Tema1EGC.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Cristina\Documents\GitHub\Tema1EGC\Debug\Tema1EGC.lib" /MACHINE:X86 Debug\Collisions.obj
          Debug\DrawingWindow.obj
          Debug\Transform2D.obj
          Debug\Visual2D.obj
          Debug\main.obj
          Debug\Opponents.obj
          lab2.vcxproj -> C:\Users\Cristina\Documents\GitHub\Tema1EGC\Debug\Tema1EGC.exe
-     1>Done Building Project "C:\Users\Cristina\Documents\GitHub\Tema1EGC\lab2\lab2.vcxproj" (Rebuild target(s)).
+     1>Done Building Project "C:\Users\Cristina\Documents\GitHub\Tema1EGC\lab2\lab2.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:07.62
+Time Elapsed 00:00:03.11

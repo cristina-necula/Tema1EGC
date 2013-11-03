@@ -36,7 +36,7 @@
     <ClCompile Include="Opponents.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Collision.cpp">
+    <ClCompile Include="Collisions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

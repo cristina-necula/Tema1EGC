@@ -1,4 +1,5 @@
 //implementarea clasei pentru oponenti
+#pragma once
 #include "Framework/Polygon2D.h"
 #include "Framework/Visual2D.h"
 #include "Framework/DrawingWindow.h"
@@ -11,6 +12,8 @@ class Opponents {
 
 public:
 
+	Visual2D *context;
+
 	float opponent1x;
 	float opponent1y;
 	Polygon2D *squareO1;
@@ -18,6 +21,7 @@ public:
 	float step1x;
 	float step1y;
 	float direction1;
+	//vector<Polygon2D*> collisionObj1;
 
 	float opponent2x;
 	float opponent2y;
@@ -28,6 +32,7 @@ public:
 	float step2x;
 	float step2y;
 	float angle2;
+	//vector<Polygon2D*> collisionObj2;
 
 	float opponent3x;
 	float opponent3y;
@@ -36,6 +41,7 @@ public:
 	float step3x;
 	float step3y;
 	float direction3;
+	//vector<Polygon2D*> collisionObj3;
 
 	float opponent4x;
 	float opponent4y;
@@ -45,6 +51,7 @@ public:
 	float step4y;
 	float angle4;
 	float direction4;
+	//vector<Polygon2D*> collisionObj4;
 
 public:
 

@@ -56,10 +56,11 @@ using namespace std;
 		this->angle2 = 0;
 		this->angle4 = 0;
 		
-
 	}
 
 	void Opponents::opponent1(float x, float y, Visual2D *context){
+
+		this->context = context;
 
 		this->opponent1x = x;
 		this->opponent1y = y;
@@ -84,21 +85,28 @@ using namespace std;
 
 	void Opponents::moveOpponent1() {
 		
-		Transform2D::loadIdentityMatrix();
+		if(this->squareO1 != NULL && this->squareO2 != NULL){
 
-		if(changeDirection(this->opponent1x, this->opponent1y)) {
-			direction1 *= -1;
-			this->step1x = (rand() % 10) / 5;
-			this->step1y = (rand() % 10) / 3; 
+			Transform2D::loadIdentityMatrix();
+
+			if(changeDirection(this->opponent1x, this->opponent1y)) {
+				direction1 *= -1;
+				int temp, temp1;
+				temp = rand()%10;
+				temp1 = rand()%10;
+
+				this->step1x = (temp ) /5;
+				this->step1y = (temp1) /3; 
+				
+			}
+
+			this->opponent1x += this->step1x * direction1;
+			this->opponent1y += this->step1y * direction1;
+
+			Transform2D::translateMatrix(this->step1x * direction1, this->step1y * direction1);
+			Transform2D::applyTransform_o(this->squareO1);
+			Transform2D::applyTransform_o(this->squareO2);
 		}
-
-		this->opponent1x += this->step1x * direction1;
-		this->opponent1y += this->step1y * direction1;
-
-		Transform2D::translateMatrix(this->step1x * direction1, this->step1y * direction1);
-		Transform2D::applyTransform_o(this->squareO1);
-		Transform2D::applyTransform_o(this->squareO2);
-
 	}
 
 	void Opponents::opponent2(float x, float y, Visual2D *context){
@@ -135,24 +143,27 @@ using namespace std;
 
 	void Opponents::moveOpponent2(){
 
-		Transform2D::loadIdentityMatrix();
+		if(this->triangleO1 != NULL && this->triangleO2 != NULL && this->triangleO3 != NULL && this->triangleO4 != NULL) {
 
-		if(changeDirection(this->opponent2x, this->opponent2y)) {
-			this->angle2 += 2.3;
-			Transform2D::translateMatrix(-this->opponent2x, -this->opponent2y);
-			Transform2D::rotateMatrix(2.3);
-			Transform2D::translateMatrix(this->opponent2x, this->opponent2y);
+			Transform2D::loadIdentityMatrix();
+
+			if(changeDirection(this->opponent2x, this->opponent2y)) {
+				this->angle2 += 2.3;
+				Transform2D::translateMatrix(-this->opponent2x, -this->opponent2y);
+				Transform2D::rotateMatrix(2.3);
+				Transform2D::translateMatrix(this->opponent2x, this->opponent2y);
+			}
+
+			this->opponent2x += this->step2x * cos(this->angle2);
+			this->opponent2y += this->step2y * sin(this->angle2);
+
+			Transform2D::translateMatrix(this->step2x * cos(this->angle2), 
+										 this->step2y * sin(this->angle2));
+			Transform2D::applyTransform_o(this->triangleO1);
+			Transform2D::applyTransform_o(this->triangleO2);
+			Transform2D::applyTransform_o(this->triangleO3);
+			Transform2D::applyTransform_o(this->triangleO4);
 		}
-
-		this->opponent2x += this->step2x * cos(this->angle2);
-		this->opponent2y += this->step2y * sin(this->angle2);
-
-		Transform2D::translateMatrix(this->step2x * cos(this->angle2), 
-									 this->step2y * sin(this->angle2));
-		Transform2D::applyTransform_o(this->triangleO1);
-		Transform2D::applyTransform_o(this->triangleO2);
-		Transform2D::applyTransform_o(this->triangleO3);
-		Transform2D::applyTransform_o(this->triangleO4);
 
 	}
 
@@ -180,21 +191,24 @@ using namespace std;
 	}
 
 	void Opponents::moveOpponent3(){
+		
+		if(this->squareO != NULL && this->rhombO != NULL){
 
-		Transform2D::loadIdentityMatrix();
+			Transform2D::loadIdentityMatrix();
 
-		if(changeDirection(this->opponent3x, this->opponent3y)) {
-			direction3 *= -1;
-			this->step3x = (rand() % 10) / 2;
-			this->step3y = (rand() % 10) / 5;
+			if(changeDirection(this->opponent3x, this->opponent3y)) {
+				direction3 *= -1;
+				this->step3x = (rand() % 10) / 2;
+				this->step3y = (rand() % 10) / 5;
+			}
+
+			this->opponent3x += this->step3x * direction3;
+			this->opponent3y += this->step3y * direction3;
+
+			Transform2D::translateMatrix(this->step3x * direction3, this->step3y * direction3);
+			Transform2D::applyTransform_o(this->squareO);
+			Transform2D::applyTransform_o(this->rhombO);
 		}
-
-		this->opponent3x += this->step3x * direction3;
-		this->opponent3y += this->step3y * direction3;
-
-		Transform2D::translateMatrix(this->step3x * direction3, this->step3y * direction3);
-		Transform2D::applyTransform_o(this->squareO);
-		Transform2D::applyTransform_o(this->rhombO);
 	}
 
 	void Opponents::opponent4(float x, float y, Visual2D *context){
@@ -222,24 +236,27 @@ using namespace std;
 
 	void Opponents::moveOpponent4() {
 
-		Transform2D::loadIdentityMatrix();
+		if(this->starO1 != NULL && this->starO2 != NULL){
 
-		if(changeDirection(this->opponent4x, this->opponent4y)) {
-			direction4 *= -1;
-			this->step4x = (rand() % 10) / 4;
-			this->step4y = (rand() % 10) / 3;
-			this->angle4 += 0.01;
+			Transform2D::loadIdentityMatrix();
+
+			if(changeDirection(this->opponent4x, this->opponent4y)) {
+				direction4 *= -1;
+				this->step4x = (rand() % 10) / 4;
+				this->step4y = (rand() % 10) / 3;
+				this->angle4 += 0.01;
+			}
+
+			Transform2D::translateMatrix(-this->opponent4x, -this->opponent4y + 7.5);
+			Transform2D::rotateMatrix(this->angle4);
+			Transform2D::translateMatrix(this->opponent4x, this->opponent4y - 7.5);
+			Transform2D::translateMatrix(this->step4x * direction4, this->step4y *direction4);
+			Transform2D::applyTransform_o(this->starO1);
+			Transform2D::applyTransform_o(this->starO2);
+
+			this->opponent4x += this->step4x * direction4;
+			this->opponent4y += this->step4y *direction4;
 		}
-
-		Transform2D::translateMatrix(-this->opponent4x, -this->opponent4y + 7.5);
-		Transform2D::rotateMatrix(this->angle4);
-		Transform2D::translateMatrix(this->opponent4x, this->opponent4y - 7.5);
-		Transform2D::translateMatrix(this->step4x * direction4, this->step4y *direction4);
-		Transform2D::applyTransform_o(this->starO1);
-		Transform2D::applyTransform_o(this->starO2);
-
-		this->opponent4x += this->step4x * direction4;
-		this->opponent4y += this->step4y *direction4;
 
 	}
 
