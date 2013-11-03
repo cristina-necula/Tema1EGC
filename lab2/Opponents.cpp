@@ -37,6 +37,7 @@ using namespace std;
 	
 	Opponents::Opponents(){
 		
+		//initializare forme geometrice pentru cele patru tipuri de oponenti
 		this->squareO1 = new Polygon2D(Color(0.5, 0, 0.5), false);
 		this->squareO2 = new Polygon2D(Color(0.5, 0, 0.5), false);
 		this->direction1 = 1.0;
@@ -60,6 +61,7 @@ using namespace std;
 
 	void Opponents::opponent1(float x, float y, Visual2D *context){
 
+		//adaugare oponent de tip 1 pe ecran
 		this->context = context;
 
 		this->opponent1x = x;
@@ -83,26 +85,27 @@ using namespace std;
 
 	}
 
+	//functia care realizeaza miscarea pentru primul tip de oponenti
 	void Opponents::moveOpponent1() {
 		
+		//daca oponentul nu a fost omorat
 		if(this->squareO1 != NULL && this->squareO2 != NULL){
 
 			Transform2D::loadIdentityMatrix();
 
+			//in cazul in care oponentul se loveste de un zid, se schimba directia
 			if(changeDirection(this->opponent1x, this->opponent1y)) {
 				direction1 *= -1;
-				int temp, temp1;
-				temp = rand()%10;
-				temp1 = rand()%10;
 
-				this->step1x = (temp ) /5;
-				this->step1y = (temp1) /3; 
+				this->step1x = (rand() % 10) / 5;
+				this->step1y = (rand() % 10) / 3; 
 				
 			}
 
 			this->opponent1x += this->step1x * direction1;
 			this->opponent1y += this->step1y * direction1;
 
+			//oponentul se translateaza cu un pas random
 			Transform2D::translateMatrix(this->step1x * direction1, this->step1y * direction1);
 			Transform2D::applyTransform_o(this->squareO1);
 			Transform2D::applyTransform_o(this->squareO2);
@@ -111,6 +114,7 @@ using namespace std;
 
 	void Opponents::opponent2(float x, float y, Visual2D *context){
 
+		//initializare si adaugare pe ecran a oponentului 2
 		this->opponent2x = x;
 		this->opponent2y = y;
 
@@ -141,12 +145,15 @@ using namespace std;
 
 	}
 
+
+	//functie care realizeaza miscarea oponentului 2
 	void Opponents::moveOpponent2(){
 
 		if(this->triangleO1 != NULL && this->triangleO2 != NULL && this->triangleO3 != NULL && this->triangleO4 != NULL) {
 
 			Transform2D::loadIdentityMatrix();
-
+			//cand schimba directia, oponentul de tipul 2 se roteste mereu la 135 grade
+			//si se deplaseaza pe directia respectiva cu pas constant
 			if(changeDirection(this->opponent2x, this->opponent2y)) {
 				this->angle2 += 2.3;
 				Transform2D::translateMatrix(-this->opponent2x, -this->opponent2y);
@@ -169,6 +176,7 @@ using namespace std;
 
 	void Opponents::opponent3(float x, float y, Visual2D *context){
 
+		//initializare si adaugate pe ecran oponent de tip3
 		this->opponent3x = x;
 		this->opponent3y = y;
 
@@ -190,8 +198,10 @@ using namespace std;
 
 	}
 
+	//miscarea pentru oponentul de tip 3
 	void Opponents::moveOpponent3(){
 		
+		//ca si oponentul de tipul 1, se translateaza cu pasi random
 		if(this->squareO != NULL && this->rhombO != NULL){
 
 			Transform2D::loadIdentityMatrix();
@@ -213,6 +223,7 @@ using namespace std;
 
 	void Opponents::opponent4(float x, float y, Visual2D *context){
 
+		//initializare oponent de tipul 4 si afisare pe ecran
 		this->opponent4x = x;
 		this->opponent4y = y;
 
@@ -233,9 +244,12 @@ using namespace std;
 		addOpponent_to_Visual2D(this->starO2, context);
 
 	}
-
+	
+	//miscarea pentru oponentul de tip 4
 	void Opponents::moveOpponent4() {
 
+		//se realizeaza translatie si rotatie in jurul centrului propriu
+		//cu cat se deplaseaza mai mult, viteza de rotatie creste
 		if(this->starO1 != NULL && this->starO2 != NULL){
 
 			Transform2D::loadIdentityMatrix();
@@ -264,9 +278,11 @@ using namespace std;
 		DrawingWindow::addObject2D_to_Visual2D(opponent, context);
 	}
 
+	//frunctie care determina, pentru doua puncte, reprezentand coordonate reprezentand un punct al oponentului,
+	//daca trebuie schimbata directia de deplasare a oponentului
 	bool Opponents::changeDirection(float x, float y){
 		
-		if(x>= 955)
+		if(x >= 955)
 			return true;
 		if(x<= 25)
 			return true;

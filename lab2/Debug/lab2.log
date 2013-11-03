@@ -1,25 +1,13 @@
-﻿Build started 11/3/2013 12:12:01 PM.
+﻿Build started 11/4/2013 1:31:27 AM.
      1>Project "C:\Users\Cristina\Documents\GitHub\Tema1EGC\lab2\lab2.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Idependente /IE:\school\EGC\tema1\lab2\lab2_ex1_v2\lab2\Framework /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Collisions.cpp Opponents.cpp
-         Opponents.cpp
-     1>c:\users\cristina\documents\github\tema1egc\lab2\framework\object2d.h(23): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(98): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(99): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(151): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(153): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(201): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(202): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(222): warning C4305: '=' : truncation from 'double' to 'float'
-     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(245): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(246): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(247): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(250): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\cristina\documents\github\tema1egc\lab2\opponents.cpp(252): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Idependente /IE:\school\EGC\tema1\lab2\lab2_ex1_v2\lab2\Framework /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Collisions.cpp
          Collisions.cpp
      1>c:\users\cristina\documents\github\tema1egc\lab2\framework\object2d.h(23): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\cristina\documents\github\tema1egc\lab2\collisions.cpp(118): warning C4018: '<' : signed/unsigned mismatch
-         Generating Code...
+     1>c:\users\cristina\documents\github\tema1egc\lab2\framework\circle2d.h(24): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\cristina\documents\github\tema1egc\lab2\framework\circle2d.h(48): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\cristina\documents\github\tema1egc\lab2\collisions.cpp(147): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\cristina\documents\github\tema1egc\lab2\collisions.cpp(188): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Cristina\Documents\GitHub\Tema1EGC\Debug\Tema1EGC.exe" /INCREMENTAL /NOLOGO /LIBPATH:dependente freeglut.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Cristina\Documents\GitHub\Tema1EGC\Debug\Tema1EGC.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Cristina\Documents\GitHub\Tema1EGC\Debug\Tema1EGC.lib" /MACHINE:X86 Debug\Collisions.obj
          Debug\DrawingWindow.obj
@@ -32,4 +20,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:03.11
+Time Elapsed 00:00:01.81

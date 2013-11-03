@@ -15,29 +15,35 @@
 
 using namespace std;
 
-//doua contexte
+//doua contexte 
 Visual2D *infos, *gameArea;
 
 //jucator unu
+
+//format din cerc si un poligon
 Polygon2D *polygon;
 Circle2D *circle;
+
+//arma jucatorului
 Polygon2D *weapon;
+
+//coordonatele cu care se translateaza pe x si pe y
 float translationX;
 float translationY;
+
 bool weaponOn;
 bool slowDown;
+
 float step = 0;
 float rotationAngle = 0;
-std::vector<Polygon2D *> collisionObjects;
+
+int killed = 0;
+int previousLives = 0;
 
 //scor si nr puncte
 Text *score;
 Text *points;
-
-//vieti
-Line2D *line;
-Rectangle2D *cross11;
-Rectangle2D *cross12;
+int nrScore = 0;
 
 std::vector <Opponents*> opponents;
 
@@ -81,7 +87,7 @@ void playerOne(float x, float y){
 
 //functia pentru arma jucatorului
 void showWeapon(int x, int y){
-	//arma
+
 	weapon = new Polygon2D(Color(1, 0.5, 0), true);
 	weapon->addPoint(Point2D(x + 40, y + 15));
 	weapon->addPoint(Point2D(x + 105, y));
@@ -89,16 +95,27 @@ void showWeapon(int x, int y){
 }
 
 //functia pentru numarul de vieti
-//initial, jucatorul are 3 vieti. Pe ecran vor fi 3 cruci gri deschis
-//in momentul in care jucatorul pierde o viata, cate o cruce se va colora in gri inchis
-void lives(int x, int y, Polygon2D *live, Visual2D *context){
+//initial, jucatorul are 3 vieti
+//in momentul in care jucatorul pierde o viata, in dreapta sus apare cate o cruce
+void lives(int killed, int previousLives, Visual2D *context){
 
+	cout <<"prev: "<<previousLives<<endl;
+	if(previousLives < killed && killed <= 3) {
+		for(int i = previousLives; i < killed; i++){
+			Line2D *line1;
+			Rectangle2D *cross11;
+			Rectangle2D *cross12;
+
+			cross11 = new Rectangle2D(Point2D(960 - 40 * i, 35), 30, 10, Color(0.333333, 0.333333, 0.333333), true);
+			cross12 = new Rectangle2D(Point2D(970 - 40 * i, 25), 10, 30, Color(0.333333, 0.333333, 0.333333), true);
+			line1 = new Line2D(Point2D(960 - 40 * i, 25), Point2D(990 - 40 * i, 25), Color(0.333333, 0.333333, 0.333333));
+
+			DrawingWindow::addObject2D_to_Visual2D(line1, infos);
+			DrawingWindow::addObject2D_to_Visual2D(cross11, infos);
+			DrawingWindow::addObject2D_to_Visual2D(cross12, infos);
+		}
+	}
 }
-
-//functia pentru coliziunea dintre jucatorul unu si ceilalti jucatori
-//return 1 => jucatorul unu a omorat dusmanul
-//return 0 => jucatorul unu a pierdut o viata(a fost atins de un alt jucator)
-
 
 //functia care permite adaugarea de obiecte
 void DrawingWindow::init()
@@ -118,15 +135,6 @@ void DrawingWindow::init()
 	//adaugare nr de puncte
 	points = new Text("0", Point2D(450, 20), Color(0, 1, 0), BITMAP_HELVETICA_18);
 	addText_to_Visual2D(points, infos);
-
-	//adaugare vieti
-	cross11 = new Rectangle2D(Point2D(25 - 10, 55 - 20), 30, 10, Color(0.333333, 0.333333, 0.333333), true);
-	cross12 = new Rectangle2D(Point2D(25, 55 - 30), 10, 30, Color(0.333333, 0.333333, 0.333333), true);
-	line = new Line2D(Point2D(25 - 10, 55 - 30), Point2D(25 + 20, 55 - 30), Color(0.333333, 0.333333, 0.333333));
-
-	DrawingWindow::addObject2D_to_Visual2D(line, infos);
-	DrawingWindow::addObject2D_to_Visual2D(cross11, infos);
-	DrawingWindow::addObject2D_to_Visual2D(cross12, infos);
 
 	//context pentru suprafata de joc
 	gameArea = new Visual2D(0, 0, DrawingWindow::width, DrawingWindow::height, 0, DrawingWindow::height / 8, 
@@ -169,9 +177,14 @@ void DrawingWindow::init()
 void DrawingWindow::onIdle()
 {
 	time++;
-	
-	if(time == 100 || time == 400) {
 
+	if(time == 100 || time % 400 == 0) {
+		
+		//resetez timpul la fiecare 1000 de frameuri
+		if(time == 1000)
+			time  = 0;
+
+		//adaug pe ecran cate un tip din fiecare oponent la fiecare 400 de frame-uri
 		Opponents *op = new Opponents();
 		opponents.push_back(op);
 
@@ -180,20 +193,62 @@ void DrawingWindow::onIdle()
 		opponents[opponents.size() - 1]->opponent3(opponent3X, opponent3Y, gameArea);
 		opponents[opponents.size() - 1]->opponent4(opponent4X, opponent4Y, gameArea);
 
-		//Collisions col;
-		//col.createImaginaryRectangles(opponents[opponents.size() - 1], weapon);
 		addedNew = true;
 	}
 
 	if(addedNew) {
 
 		for(int i = 0; i < opponents.size(); i++){
+
 			opponents[i]->moveOpponent1();
 			opponents[i]->moveOpponent2();
 			opponents[i]->moveOpponent3();
 			opponents[i]->moveOpponent4();
+			
+			//dupa fiecare miscare a oponentilos, verific daca se produce vreo coliziune
+
 			Collisions *collissions = new Collisions();
-			collissions->killOpponent(opponents[i], weapon, weapon);
+			
+			//daca jucatorul are arma activata, pot verifica daca omoara vreun inamic
+			if(weaponOn) {
+				
+				//functia killOpponent returneaza scorul aferent in cazul in care un inamic a fost omorat si 0 altfel
+				nrScore += collissions->killOpponent(opponents[i], weapon);
+
+				//actualizez scorul
+				removeText_from_Visual2D(points, infos);
+				points = NULL;
+				char nrPoints[100];
+				points = new Text(itoa(nrScore, nrPoints, 10), Point2D(450, 20), Color(0, 1, 0), BITMAP_HELVETICA_18);
+				addText_to_Visual2D(points, infos);
+			}
+
+			//indiferent daca jucatorul are sau nu arma activata, verific daca un oponent l-a atins
+			//functia killPlayer intoarce numarul de oponenti care au atins jucatorul la un moment de timp
+			killed += collissions->killPlayer(opponents[i], new Point2D(translationX, translationY));
+			
+			//daca variabila isi schimba valoarea, jucatorul a pierdut o viata, pe ecran apare o cruce
+			if(killed != previousLives) {
+				lives(killed, previousLives, gameArea);
+				previousLives = killed;
+			}
+			
+
+			//cand jucatorul pierde trei vieti, jocul se termina
+			if(killed >= 3){
+
+				//textul GAME OVER va aparea pe ecran
+				Text *gameOver;
+				gameOver = new Text("GAME OVER", Point2D(450, 300), Color(1, 0, 1), BITMAP_HELVETICA_18);
+				addText_to_Visual2D(gameOver, gameArea);
+
+				//jucatorul unu dispare de pe ecran
+				removeObject2D_from_Visual2D(polygon, gameArea);
+				removeObject2D_from_Visual2D(circle, gameArea);
+				if(weapon)
+					removeObject2D_from_Visual2D(weapon, gameArea);
+			}
+			
 		}
 	}
 
@@ -215,6 +270,7 @@ void DrawingWindow::onKey(unsigned char key)
 
 		case KEY_UP : 
 
+			//deplasare pe directia indicata de jucator
 			//daca arma este activata, viteza de deplasare este mai mica
 			if(slowDown) {
 				//daca se ajunge la marginea contextului de vizualizare, jucatorul nu mai poate inainta
@@ -259,6 +315,7 @@ void DrawingWindow::onKey(unsigned char key)
 
 		case KEY_SPACE : 
 
+			//se activeaza sau se dezactiveaza arma
 			if(weaponOn) {
 				removeObject2D_from_Visual2D(weapon, gameArea);
 				weaponOn = false;
@@ -273,6 +330,7 @@ void DrawingWindow::onKey(unsigned char key)
 
 		case KEY_LEFT :
 			
+			//rotatie la stanga
 			Transform2D::loadIdentityMatrix();
 			Transform2D::translateMatrix(-500, -300);
 			rotationAngle += 0.1;
@@ -285,6 +343,7 @@ void DrawingWindow::onKey(unsigned char key)
 
 		case KEY_RIGHT :
 
+			//rotatie la dreapta
 			Transform2D::loadIdentityMatrix();
 			Transform2D::translateMatrix(-500, -300);
 			rotationAngle -= 0.1;
@@ -303,37 +362,8 @@ void DrawingWindow::onMouse(int button,int state,int x, int y)
 	
 }
 
-int get_line_intersection1(float p0_x, float p0_y, float p1_x, float p1_y, 
-    float p2_x, float p2_y, float p3_x, float p3_y, float *i_x, float *i_y)
-{
-    float s1_x, s1_y, s2_x, s2_y;
-    s1_x = p1_x - p0_x;     s1_y = p1_y - p0_y;
-    s2_x = p3_x - p2_x;     s2_y = p3_y - p2_y;
-
-    float s, t;
-    s = (-s1_y * (p0_x - p2_x) + s1_x * (p0_y - p2_y)) / (-s2_x * s1_y + s1_x * s2_y);
-    t = ( s2_x * (p0_y - p2_y) - s2_y * (p0_x - p2_x)) / (-s2_x * s1_y + s1_x * s2_y);
-
-    if (s >= 0 && s <= 1 && t >= 0 && t <= 1)
-    {
-        // Collision detected
-        if (i_x != NULL)
-            *i_x = p0_x + (t * s1_x);
-        if (i_y != NULL)
-            *i_y = p0_y + (t * s1_y);
-        return 1;
-    }
-}
 int main(int argc, char** argv)
 {
-	/*float *p_x = 0;
-	float *p_y = 0;
-
-	int ceva = get_line_intersection1(200.0, 215.0, 240.0, 200.0, 230.0, 220.0, 230.0, 180.0, p_x, p_y);
-	int x = get_line_intersection1(220.0, 190.0,230.0, 170.0, 250.0, 200.0, 250.0, 170.0, p_x, p_y);
-	cout << ceva<<endl;
-	cout << x << endl;*/
-
 	//creare fereastra
 	DrawingWindow dw(argc, argv, 1000, 600, 200, 100, "Geometry Wars");
 	//se apeleaza functia init() - in care s-au adaugat obiecte
