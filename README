@@ -1,0 +1,161 @@
+﻿EGC - Tema 1
+Geometry Wars
+Necula Cristina Suzana 334CA
+
+Cuprins: 
+
+1. Cerinta
+2. Utilizare
+3. Implementare
+4. Testare
+5. Probleme Aparute
+6. Continutul Arhivei
+7. Functionalitati
+
+1.Cerinta
+
+	Se cere implementarea jocului Geometry Wars.
+	Jocul este single player, exista 3 tipuri de oponenti care pot fi omorati cu ajutorul armei de tip burgiu.
+	De asemenea, un oponent poate omori jucatorul la contactul cu acesta.
+	Distrugerea oponentilor aduce dupa sine imbunatatirea scorului,
+	Jucatorul are 3 vieti la dispozitie, jocul se termina cand jucatorul pierde cele 3 vieti.
+
+2.Utilizare
+
+Interfata Grafica:
+
+Butoane:
+
+	[SPACE] - activarea sau dezactivarea armei burgiu
+
+	[KEY_UP] - deplasare pe directia pe care se afla jucatorul
+
+	[KEY_LEFT] - rotire la stanga a jucatorului
+
+	[KEY_RIGHT] - rotire la dreapta a jucatorului
+
+3.Implementare
+
+IDE - Visual Studio 2012
+Sistem de operare - Windows 7, 64 biti
+Framework - framework-ul pus la dispozitie la laboratorul 2
+
+Algoritmi folositi
+
+Pentru implementarea temei, algoritmii principali au fost folositi la coliziunile intre doi jucatori
+
+
+Pentru verificarea ciocnirii intre arma si oponenti, am folosit un algoritm care verifica daca doua linii, specificate prin capetele lor, se intersecteaza.
+Fiecare oponent a fost incadrat intr-un dreptunghi imaginar.
+Intersectia s-a verificat pentru fiecare latura a dreptungiului imaginar si laturile armei.
+Fie o linie A, de lungime infinita, si doua punte A1 si A2(capetele).
+Putem defini orice punct de pe acea dreapta ca fiind:
+
+Pa =A1 +ua(A2 −A1), unde ua este orice nr real.
+
+Daca 0 <= ua <= 1, atunci punctul se afla intre A1 si A2.
+De asemenea, putem face acelasi lucru si pentru a doua dreapta:
+
+Pb =B1 +uB(B2 −B1).
+
+Punctul de intersectie se calculeaza egaland cele doua ecuatii
+
+Pa = Pb =>
+
+xA1+ua(xA2 −xA1)=xB1 +ub(xB2 −xB1) |
+yA1+ua(yA2 −yA1)=yB1 +ub(yB2 −yB1) | =>
+
+
+ua=(xB2 −xB1)(yA1 −yB1) – (yB2 −yB1)(xA1–xB1) / (yB2 −yB1)(xA2 −xA1)–(xB2 −xB1)(yA2 −yA1)
+ub=(xA2 −xA1)(yA1 −yB1) – (yA2 −yA1)(xA1–xB1) / (yB2 −yB1)(xA2 −xA1)–(xB2 −xB1)(yA2 −yA1)
+
+Deimpartitul pentru cele doua este identic, si va trebui sa fie diferit de 0.
+Pentru a verifica intesectia, se calculeaza ua si ub pentru punctele dorite si se verifica sa fie cuprinse intre 0 si 1.
+
+
+Pentru verificarea ciocnitii intre oponent si jucator, am folosit un algoritm pentru intersectia intre o linie si un cerc.
+Pentru fiecare linie a dreptungiului imaginar care incadreaza fiecare oponent, verific daca acesta se intersecteaza cu cercul din care este format jucatorul.
+
+Fie P1 si P2 capetele segmentului, P3 centrul cercului si R raza cercului.
+Fie P un punct pe dreapta P1P2.
+P=P1 +u(P2 −P1), u numar real.
+Definim ecuatia cercului cu centrul in origine:
+x^2 + y^2 = r^2.
+Scriem si ecuatia dreptei:
+a*u^2 + b*u + c = 0, unde a, b, c sunt:
+a = (x2 - x1)^2 + (y2 - y1)^2
+b = 2(xp*(x2 - x1) + yp(y2 - y1)), xp = x1 - Cx, yp = x2 - Cy;
+c = xp^2 + yp^2 - r^2
+Solutia ecuatiei va fi:
+u = (-b +- sqrt(b^2 - 4*a*c)) / 2*a;
+Solutia este conditionata de delta, adica expresia de sub radical.
+Daca delta este pozitiva, calculez solutiile si verific daca puntul apartine dreptei.
+
+3.1 Schema Generala
+
+-deschidere aplicatie
+-aparite jucator pe ecran
+-dupa 100 de frame-uri, apar primii 4 oponenti care au miscari random
+-jucatorul poate apasa tastele [SPACE], [KEY_UP], [KEY_LEFT], [KEY_RIGHT] pentru a se apara sau a ataca, scopul sau fiind sa ramana cat mai mult in viata si sa cumuleze un scor cat mai mare
+-dupa ce omoara un inamic, scorul se actualizeaza si inamicul dispare
+-dupa ciocnirea cu un inamic, inamicul moare si jucatorul pierde o viata; acest lucru este marcat prin disparitia inamicului si aparitia unei cruci in zona dreapta-sus a ecranului, ca urmare a pierderii unei vieti
+-dupa ce pierde trei vieti, jocul se termina, jucatorul dispare de pe ecran
+
+3.2 Diagrama de Clase
+
+++--Opponents
+++--Collisions
+
+4. Testare
+
+Tema nu a putut fi testata automat, doar prin joc. 
+
+5. Probleme aparute
+
+-deplasarea oponentului de tipul doi pe directia indicata de sageata; pentru a rezolva problema a trebuit sa rotesc de fiecare data matricea cu acelasi unghi, dar pentru directiile de deplasare sa adun la valoarea anterioara a ungiului aceeasi valoare cu care se rotea.
+-tratarea coliziunilor intre jucator si oponenti, in cazul in care jucatorul isi pierde o viata; am incercat sa aflu centrul cercului din transf_points dar nu indica pozitia corespunzatoare, asa ca am trimis ca parametru translatia pe x si pe x a jucatorului.
+
+6. Continutul Arhivei
+
+main.cpp
+	-sursa principala a aplicatiei
+	-contine implementarea pentru jucator si arma, precum si logica de miscare a jucatorului
+
+Opponents.h
+	-header pentru clasa Opponents
+	-contine metode pentru desenarea jucatorilor si miscarile acestora
+
+Opponents.cpp
+	-implementarea metodelor din Opponents.h
+	-opponent1, opponent2, opponent3, opponent4 - desenarea celor patru oponenti
+	-moveOpponent1, moveOpponent2, moveOpponent3, moveOpponent4 - miscari random pentru cele patru tipuri de oponenti
+
+Collisions.h
+	-header pentru clasa Collisions
+	-trateaza coliziunile intre jucator si oponent
+
+Collisions.cpp
+	-metode:
+		-createImaginaryRectangles() - pentru fiecare oponent, daca mai traieste, creeaza un dreptunhi imaginar avand ca parametru pozitia actuala a oponentului; acestea vor fi necesare la coliziuni
+		-lineIntersection() - verifica daca doua linii se intersecteaza
+		-intersected() - verifica daca arma se intersecteaza cu vreun inamic
+		-killOpponent() - omoara oponentul si intoarce scorul
+		-lineCircleIntersection() - verifica daca o linie se intersecteaza cu un cerc
+		-killPlayer() - ia o viata jucatorului si omoara oponentul cu care s-a ciocnit
+
+Readme
+	-acest fisier
+
+Restul claselor fac parte din frameworkul de la laborator.
+
+7. Functionalitati
+
+Functionalitati standard:
+	-miscarea jucator: inainte, rotire la stanga si la dreapta,
+	activare arma, deplasare cu viteza mai mare cand arma este dezactivata
+	-4 tipuri de oponenti diferiti, cu punctaje diferite,cu miscari random independente
+	-limitarea deplasarii jucatorului(si a armei) si oponentilor in spatiul de joc
+	-definirea a doua contexte diferite, unul pentru joc si unul pentru afisarea informatiilor legate de nr de vieti, scor
+	-coliziunea intre arma si oponent: oponentul dispare si jucatorul primeste punctajul aferent
+	-coliziunea intre jucator si oponent: jucatorul pierde o viata, oponentul dispare, in dreapta sus apare o cruce
+	-jocul se termina cand jucatorul pierde cele trei vieti

@@ -99,9 +99,10 @@ void showWeapon(int x, int y){
 //in momentul in care jucatorul pierde o viata, in dreapta sus apare cate o cruce
 void lives(int killed, int previousLives, Visual2D *context){
 
-	cout <<"prev: "<<previousLives<<endl;
 	if(previousLives < killed && killed <= 3) {
+		
 		for(int i = previousLives; i < killed; i++){
+
 			Line2D *line1;
 			Rectangle2D *cross11;
 			Rectangle2D *cross12;
